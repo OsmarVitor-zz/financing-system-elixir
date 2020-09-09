@@ -21,6 +21,16 @@ defmodule FinancingSystem do
 
     iex> FinancingSystem.deposit((%{:uuid => "a003be1f-a993-4743-a1e5-efd512b5c1e4", :name => "User Name Test", :balance => 1200.000, :money_pattern => 986}), -20)
     "invalid operation!"
+
+  payment.
+
+  ## Examples
+
+    iex> FinancingSystem.payment((%{:uuid => "a003be1f-a993-4743-a1e5-efd512b5c1e4", :name => "User Name Test", :balance => 1200.000, :money_pattern => 986}), 100)
+    {:ok, %{balance: 1100, money_pattern: 986, name: "User Name Test", uuid: "a003be1f-a993-4743-a1e5-efd512b5c1e4"}}
+
+    iex> FinancingSystem.payment((%{:uuid => "a003be1f-a993-4743-a1e5-efd512b5c1e4", :name => "User Name Test", :balance => 1200.000, :money_pattern => 986}), -20)
+    "invalid operation!"
   """
 
   def get_info_user(user_info),
@@ -33,5 +43,13 @@ defmodule FinancingSystem do
       "invalid operation!"
     end
   end
+
+  def payment(user, payment_value) do
+    if payment_value > 0 do
+      {:ok, Map.update!(user, :balance, &(MoneyUtils.format_money(&1) - MoneyUtils.format_money(payment_value)))}
+    else
+      "invalid operation!"
+    end
+   end 
 
 end
