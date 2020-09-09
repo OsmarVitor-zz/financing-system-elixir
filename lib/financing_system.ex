@@ -41,6 +41,16 @@ defmodule FinancingSystem do
 
     iex> FinancingSystem.transfer_money(user_to_transfer, -20, %{:uuid => "a003be1f-a993-4743-a1e5-efd512b5c1e4", :name => "User Name Test", :balance => 1200.000, :money_pattern => 986})
     "invalid operation!"
+
+  exchange_money.
+
+  ## Examples
+
+    iex> FinancingSystem.exchange_money(%{balance: 1200, money_pattern: 986, name: "User Test 2",uuid: "a003be1f-a993-4743-a1e5-efd512b5c1e4"}, "dollar")
+    {:ok, %{balance: 240.0, money_pattern: 986, name: "User Test 2", uuid: "a003be1f-a993-4743-a1e5-efd512b5c1e4"}}
+
+    iex> FinancingSystem.exchange_money(%{balance: 1200, money_pattern: 986, name: "User Test 2",uuid: "a003be1f-a993-4743-a1e5-efd512b5c1e4"}, "euro")
+    {:ok, %{balance: 200.0, money_pattern: 986, name: "User Test 2", uuid: "a003be1f-a993-4743-a1e5-efd512b5c1e4"}}
   """
 
   def get_info_user(user_info),
@@ -70,4 +80,8 @@ defmodule FinancingSystem do
     end
    end
 
+   def exchange_money(user, money_to_exchange) do
+    currency = %{:dollar => 5.36, :euro => 6.31}
+    {:ok, Map.update!(user, :balance, &(MoneyUtils.format_money(&1) / MoneyUtils.format_money(currency[String.to_atom(money_to_exchange)])))}
+  end
 end

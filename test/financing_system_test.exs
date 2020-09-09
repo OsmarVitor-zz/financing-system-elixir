@@ -38,4 +38,14 @@ defmodule FinancingSystemTest do
     assert FinancingSystem.transfer_money(user1, -10, user2) ==  "invalid operation!"
   end
 
+  test "exchange money to dollar" do
+    model = %{:uuid => "84417174-a2ae-4557-abb3-7123ba381d9b", :name => "User Name", :balance => 1200.000, :money_pattern => 986}
+    assert {:ok, %{balance: 240.0, money_pattern: 986, name: "User Name", uuid: "84417174-a2ae-4557-abb3-7123ba381d9b"}} == FinancingSystem.exchange_money(model, "dollar")
+  end
+
+  test "exchange money to euro" do
+    model = %{:uuid => "219fd035-fa1f-4864-ae3f-3e55462ac6ea", :name => "User Name", :balance => 1200.000, :money_pattern => 986}
+    assert {:ok, %{balance: 200.0, money_pattern: 986, name: "User Name", uuid: "219fd035-fa1f-4864-ae3f-3e55462ac6ea"}} == FinancingSystem.exchange_money(model, "euro")
+  end
+
 end
