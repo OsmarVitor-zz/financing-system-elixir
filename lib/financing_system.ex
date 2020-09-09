@@ -82,6 +82,11 @@ defmodule FinancingSystem do
 
    def exchange_money(user, money_to_exchange) do
     currency = %{:dollar => 5.36, :euro => 6.31}
-    {:ok, Map.update!(user, :balance, &(MoneyUtils.format_money(&1) / MoneyUtils.format_money(currency[String.to_atom(money_to_exchange)])))}
+    verify_currency = currency[String.to_atom(money_to_exchange)]
+    if(verify_currency != nil) do
+      {:ok, Map.update!(user, :balance, &(MoneyUtils.format_money(&1) / MoneyUtils.format_money(currency[String.to_atom(money_to_exchange)])))}
+    else
+      "invalid operation!"
+    end
   end
 end
