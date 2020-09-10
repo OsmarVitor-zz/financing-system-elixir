@@ -1,21 +1,24 @@
-# FinancingSystem
+# My First Elixir Project
 
-**TODO: Add description**
+Application built for my first contact with the Elixir programming language. This application is intended to simulate some financial transactions.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `financing_system` to your list of dependencies in `mix.exs`:
+It is necessary to have Elixir installed on your machine, if it is not installed, follow the tutorial on the website itself: [Install Elixir](https://elixir-lang.org/install.html).
 
-```elixir
-def deps do
-  [
-    {:financing_system, "~> 0.1.0"}
-  ]
-end
-```
+## Download
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/financing_system](https://hexdocs.pm/financing_system).
+You can download the project using the following command:
 
+```git clone https://github.com/OsmarVitor/financing-system-elixir.git```
+
+## Usage
+
+
+To start the application in interactive mode, run the following command:
+```iex -S mix```
+
+To run all tests: ``` mix test ```
+
+## License
+[MIT](https://github.com/OsmarVitor/financing-system-elixir/blob/master/LICENSE)
