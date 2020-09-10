@@ -13,7 +13,7 @@ defmodule FinancingSystemTest do
 
   test "not deposit -100 to account" do
     user_test = %{:uuid => "b499de09-a081-4987-8585-c7539e8cee17", :name => "User Name", :balance => 1200.000, :money_pattern => 986}
-    assert FinancingSystem.deposit(user_test, -100) == "invalid operation!"
+    assert {:error, "invalid operation!"} == FinancingSystem.deposit(user_test, -100)
   end
 
   test "payment of 350" do
@@ -23,7 +23,7 @@ defmodule FinancingSystemTest do
 
   test "not payment of -350" do
     user_test = %{:uuid => "e3a7661b-c457-4f30-82a2-16854516c4d6", :name => "User Name", :balance => 1200.00, :money_pattern => 986}
-    assert FinancingSystem.payment(user_test, -200) == "invalid operation!"
+    assert {:error, "invalid operation!"} == FinancingSystem.payment(user_test, -200)
   end
 
   test "transfer 100 of user1 to user2" do
@@ -35,7 +35,7 @@ defmodule FinancingSystemTest do
   test "not transfer -10 of user1 to user2" do
     user1 = %{:uuid => "0d29e1ab-51af-48e6-ad2d-ea380800736c", :name => "User Name", :balance => 1200.00, :money_pattern => 986}
     user2 = %{:uuid => "8327c9be-f12e-4134-a8dc-d2f0c018a7d3", :name => "User Name", :balance => 1200.00, :money_pattern => 986}
-    assert FinancingSystem.transfer_money(user1, -10, user2) ==  "invalid operation!"
+    assert {:error, "invalid operation!"} == FinancingSystem.transfer_money(user1, -10, user2)
   end
 
   test "exchange money to dollar" do
@@ -50,7 +50,7 @@ defmodule FinancingSystemTest do
 
   test "not exchange money to unsupported currency" do
     user = %{:uuid => "219fd035-fa1f-4864-ae3f-3e55462ac6ea", :name => "User Name", :balance => 1200.000, :money_pattern => 986}
-    assert FinancingSystem.exchange_money(user, "peso") == "invalid operation!"
+    assert {:error, "invalid operation!"} == FinancingSystem.exchange_money(user, "peso")
   end
 
 end

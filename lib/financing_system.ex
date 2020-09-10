@@ -20,7 +20,7 @@ defmodule FinancingSystem do
     {:ok, %{balance: 1300, money_pattern: 986, name: "User Name Test", uuid: "a003be1f-a993-4743-a1e5-efd512b5c1e4"}}
 
     iex> FinancingSystem.deposit((%{:uuid => "a003be1f-a993-4743-a1e5-efd512b5c1e4", :name => "User Name Test", :balance => 1200.000, :money_pattern => 986}), -20)
-    "invalid operation!"
+    {:error, "invalid operation!"}
 
   payment.
 
@@ -30,7 +30,7 @@ defmodule FinancingSystem do
     {:ok, %{balance: 1100, money_pattern: 986, name: "User Name Test", uuid: "a003be1f-a993-4743-a1e5-efd512b5c1e4"}}
 
     iex> FinancingSystem.payment((%{:uuid => "a003be1f-a993-4743-a1e5-efd512b5c1e4", :name => "User Name Test", :balance => 1200.000, :money_pattern => 986}), -20)
-    "invalid operation!"
+    {:error, "invalid operation!"}
 
   transfer_money.
 
@@ -40,7 +40,7 @@ defmodule FinancingSystem do
     {:ok, %{balance: 1300, money_pattern: 986, name: "User Test 2",uuid: "a003be1f-a993-4743-a1e5-efd512b5c1e4"}}
 
     iex> FinancingSystem.transfer_money(user_to_transfer, -20, %{:uuid => "a003be1f-a993-4743-a1e5-efd512b5c1e4", :name => "User Name Test", :balance => 1200.000, :money_pattern => 986})
-    "invalid operation!"
+    {:error, "invalid operation!"}
 
   exchange_money.
 
@@ -60,7 +60,7 @@ defmodule FinancingSystem do
     if deposit_value > 0 do
       {:ok, Map.update!(user, :balance, &(MoneyUtils.format_money(&1) + MoneyUtils.format_money(deposit_value)))}
     else
-      "invalid operation!"
+      {:error, "invalid operation!"}
     end
   end
 
@@ -68,13 +68,13 @@ defmodule FinancingSystem do
     if payment_value > 0 do
       {:ok, Map.update!(user, :balance, &(MoneyUtils.format_money(&1) - MoneyUtils.format_money(payment_value)))}
     else
-      "invalid operation!"
+      {:error, "invalid operation!"}
     end
    end 
 
    def transfer_money(user_to_transfer, money_to_transfer, user_to_receive) do
     if money_to_transfer < 0 or user_to_transfer[:balance] < 0 do
-      "invalid operation!"
+      {:error, "invalid operation!"}
     else
       {:ok, Map.update!(user_to_receive, :balance, &(MoneyUtils.format_money(&1) + MoneyUtils.format_money(money_to_transfer)))}
     end
@@ -86,7 +86,7 @@ defmodule FinancingSystem do
     if(verify_currency != nil) do
       {:ok, Map.update!(user, :balance, &(MoneyUtils.format_money(&1) / MoneyUtils.format_money(currency[String.to_atom(money_to_exchange)])))}
     else
-      "invalid operation!"
+      {:error, "invalid operation!"}
     end
   end
 end
