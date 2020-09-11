@@ -54,7 +54,7 @@ defmodule FinancingSystem do
   """
 
   def get_info_user(user_info),
-  do: {:ok, "User name: #{user_info[:name]}, account balace: #{MoneyUtils.format_money(user_info[:balance])}"}
+  do: {:ok, "User name: #{user_info.name}, account balace: #{MoneyUtils.format_money(user_info.balance)}"}
 
   def deposit(user, deposit_value) do
     if deposit_value > 0 do
@@ -73,7 +73,7 @@ defmodule FinancingSystem do
    end 
 
    def transfer_money(user_to_transfer, money_to_transfer, user_to_receive) do
-    if money_to_transfer < 0 or user_to_transfer[:balance] < 0 do
+    if money_to_transfer < 0 or user_to_transfer.balance < 0 do
       {:error, "invalid operation!"}
     else
       {:ok, Map.update!(user_to_receive, :balance, &(MoneyUtils.format_money(&1) + MoneyUtils.format_money(money_to_transfer)))}
@@ -81,7 +81,7 @@ defmodule FinancingSystem do
    end
 
    def exchange_money(user, money_to_exchange) do
-    currency = %{:dollar => 5.36, :euro => 6.31}
+    currency = %{dollar: 5.36, euro: 6.31}
     verify_currency = currency[String.to_atom(money_to_exchange)]
     if(verify_currency != nil) do
       {:ok, Map.update!(user, :balance, &(MoneyUtils.format_money(&1) / MoneyUtils.format_money(currency[String.to_atom(money_to_exchange)])))}
