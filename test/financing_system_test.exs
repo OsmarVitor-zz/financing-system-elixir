@@ -2,17 +2,17 @@ defmodule FinancingSystemTest do
   use ExUnit.Case
 
   test "get info of a User Test" do
-    user_test = %User{uuid: "a003be1f-a993-4743-a1e5-efd512b5c1e4", name: "User Name", balance: 1200.000, money_pattern: 986}
+    user_test = %User{uuid: "a003be1f-a993-4743-a1e5-efd512b5c1e4", name: "User Name", balance: 1200.00, money_pattern: 986}
     assert {:ok, "User name: User Name, account balace: 1200"} == FinancingSystem.get_info_user(user_test)
   end
 
   test "deposit 100 to account" do
-    user_test = %User{uuid: "9fa7802b-79f5-4588-9a5e-396068756129", name: "User Name", balance: 1200.000, money_pattern: 986}
+    user_test = %User{uuid: "9fa7802b-79f5-4588-9a5e-396068756129", name: "User Name", balance: 1200.00, money_pattern: 986}
     assert {:ok, %User{:uuid => "9fa7802b-79f5-4588-9a5e-396068756129" , :name => "User Name", :balance => 1300.000, :money_pattern => 986}} == FinancingSystem.deposit(user_test, 100)
   end
 
   test "not deposit -100 to account" do
-    user_test = %User{uuid: "b499de09-a081-4987-8585-c7539e8cee17", name: "User Name", balance: 1200.000, money_pattern: 986}
+    user_test = %User{uuid: "b499de09-a081-4987-8585-c7539e8cee17", name: "User Name", balance: 1200.00, money_pattern: 986}
     assert {:error, "invalid operation!"} == FinancingSystem.deposit(user_test, -100)
   end
 
@@ -39,17 +39,17 @@ defmodule FinancingSystemTest do
   end
 
   test "exchange money to dollar" do
-    user = %User{uuid: "84417174-a2ae-4557-abb3-7123ba381d9b", name: "User Name", balance: 1200.000, money_pattern: 986}
+    user = %User{uuid: "84417174-a2ae-4557-abb3-7123ba381d9b", name: "User Name", balance: 1200.00, money_pattern: 986}
     assert {:ok, %User{balance: 240.0, money_pattern: 986, name: "User Name", uuid: "84417174-a2ae-4557-abb3-7123ba381d9b"}} == FinancingSystem.exchange_money(user, "dollar")
   end
 
   test "exchange money to euro" do
-    user = %User{uuid: "219fd035-fa1f-4864-ae3f-3e55462ac6ea", name: "User Name", balance: 1200.000, money_pattern: 986}
+    user = %User{uuid: "219fd035-fa1f-4864-ae3f-3e55462ac6ea", name: "User Name", balance: 1200.00, money_pattern: 986}
     assert {:ok, %User{balance: 200.0, money_pattern: 986, name: "User Name", uuid: "219fd035-fa1f-4864-ae3f-3e55462ac6ea"}} == FinancingSystem.exchange_money(user, "euro")
   end
 
   test "not exchange money to unsupported currency" do
-    user = %User{uuid: "219fd035-fa1f-4864-ae3f-3e55462ac6ea", name: "User Name", balance: 1200.000, money_pattern: 986}
+    user = %User{uuid: "219fd035-fa1f-4864-ae3f-3e55462ac6ea", name: "User Name", balance: 1200.00, money_pattern: 986}
     assert {:error, "invalid operation!"} == FinancingSystem.exchange_money(user, "peso")
   end
 
